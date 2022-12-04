@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const e = require('express')
 
 const app = express()
 
@@ -77,6 +76,19 @@ app.get('/handle-change', (req, res) => {
   colPool[arrayID].text.splice(...args)
   console.log(colPool[arrayID].text)
   res.send(colPool[arrayID].text)
+})
+
+app.get('/handle-update', (req, res) => {
+  const { arrayID } = req.query
+  //此处注意返回的arrayID是字符串形式的-1
+  if (arrayID !== '-1') {
+    res.send({
+      text: colPool[arrayID].text,
+      number: 1
+    })
+  } else {
+    res.send({ number: 0 })
+  }
 })
 
 app.listen(8888, () => {
